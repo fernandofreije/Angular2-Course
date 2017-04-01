@@ -1,0 +1,52 @@
+ <h2>Ver/eliminar contactos</h2>
+ <button (click)="toggle()">Mostrar/Ocultar tabla</button>
+ 
+  <table [ngClass]="displayText">
+    <thead>
+    <tr>
+       <td>
+          Nombre 
+      </td>
+          <td>
+           Apellidos
+          </td>
+          <td>
+           Telefono
+          </td>
+            <td>
+              Borrar
+          </td>
+          </tr>
+    </thead>    
+    <tbody>
+      <tr *ngFor="let c of getContactList()" >
+          <td>
+            {{c.nombre}}
+          </td>
+          <td>
+           {{c.apellido}}
+          </td>
+          <td>
+           {{c.telefono}}
+          </td>
+          <td>
+            <button (click)="eliminar(c)">Eliminar</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+
+<div>
+  <input [(ngModel)]="telephoneNumberEliminar" />
+  <button (click)="eliminarNumber()">Buscar y eleminar</button>
+</div>
+
+<h2>Añadir usuario</h2>
+<div>
+  <input [(ngModel)]="nombreAdd" />
+  <input [(ngModel)]="apellidoAdd" />
+  <input [(ngModel)]="telefonoAdd" />
+  <button (click)="add()">Añadir</button>
+</div>
+
+  
