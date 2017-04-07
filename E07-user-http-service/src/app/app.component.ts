@@ -16,8 +16,6 @@ export class AppComponent {
   constructor(private service : UserService){
    this.getUserList();
   }
-
-
   
   getUserList(){
     return this.service.getUsers().subscribe(list=>this.list=list);
