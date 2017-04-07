@@ -11,10 +11,6 @@ export class UserService {
 
   constructor(private http: Http) {this.getUsers();}
 
-  refresh(){
-    this.getUsers();
-  }
-
   getUsers(): Observable<User[]> {
     return this.http.get(this.url)
       .map(this.getData)
@@ -22,17 +18,19 @@ export class UserService {
   }
 
   private getData(res: Response): User[]{
-    let users: User[];
-   for (let element in res.json()["results"]){
+   var users: User[] = [];
+    for(let result of res.json()["results"]){
       users.push(
         new User(
-          element["name"]["first"],
-          element["name"]["last"],
-          element["email"],
-          element["picture"]["thumbnail"],
-          element["phone"]));
-   }
-   return users;
+          result["name"]["first"],
+          result["name"]["last"],
+          result["email"],
+          result["picture"]["medium"],
+          result["phone"]
+        )
+      );
+    }
+return users;
   }
 
   private handleError(error: Response | any){

@@ -13,9 +13,17 @@ import 'rxjs/Rx';
 export class AppComponent {
   title = 'Lista personas';
   list: User[];
-  constructor(private service : UserService){}
+  constructor(private service : UserService){
+   this.getUserList();
+  }
+
+
   
   getUserList(){
-    return this.service.getUsers().subscribe(list=>this.list=list)
+    return this.service.getUsers().subscribe(list=>this.list=list);
+  }
+
+  refresh(){
+    this.getUserList();
   }
 }
