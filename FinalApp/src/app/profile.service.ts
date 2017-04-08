@@ -1,0 +1,42 @@
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Profile } from './profile';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+
+@Injectable()
+export class ProfileService {
+
+  url: string = "https://randomuser.me/api/?results=1";
+
+  constructor(private http: Http) { this.getUsers(); }
+
+  getUsers(): Observable<Profile> {
+    return this.http.get(this.url)
+      .map(this.getData)
+      .catch(this.handleError);
+  }
+
+  private getData(res: Response): Profile{
+    let result = res.json()["results"][0];
+     return new Profile(
+        result["name"]["first"] +
+        result["name"]["last"],
+        result["email"],
+        result["picture"]["medium"]);
+  }
+
+  private handleError(error: Response | any) {
+    let errorMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errorMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errorMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errorMsg);
+    return Observable.throw(errorMsg);
+  }
+
+}
