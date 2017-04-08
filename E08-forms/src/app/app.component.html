@@ -1,0 +1,14 @@
+<h1>
+  {{title}}
+</h1>
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <label>Nombre</label>
+  <input type="text" #nombre1="ngModel" required [(ngModel)]="nombre" name="nombre" />
+  <label>Apellidos</label>
+  <input type="text" #apellidos1="ngModel" required [(ngModel)]="apellidos" name="apellidos" />
+  <label>Email</label>
+  <input type="text" #email1="ngModel" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" [(ngModel)]="email" name="email" />
+  <label>Telefono</label>
+  <input type="number" #telefono1="ngModel" [(ngModel)]="telefono" name="telefono" />
+  <button [disabled]="form.invalid" type="submit">Crear</button>
+</form>
